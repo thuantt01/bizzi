@@ -1,9 +1,10 @@
 import { UseGuards } from '@nestjs/common';
 import { AuthService } from '@app/auth/auth.service';
-import { LoginUserInput } from '@src/app/auth/dto/login-user.input';
+import { LoginUserInput } from '@app/auth/dto/login-user.input';
+import { LocalAuthGuard } from '@app/auth/strategies/local/guard';
+import { SignUpUserInput } from '@app/auth/dto/sign-up-user.input';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
-import { LocalAuthGuard } from '@src/app/auth/strategies/local/guard';
-import { LoginUserResponse } from '@src/app/auth/dto/login-user.response';
+import { LoginUserResponse } from '@app/auth/dto/login-user.response';
 
 @Resolver()
 export class AuthResolver {
@@ -16,5 +17,10 @@ export class AuthResolver {
     @Context() { user },
   ) {
     return this.authService.login(user);
+  }
+
+  @Mutation(() => LoginUserResponse)
+  async signUp(@Args('signUpUserInput') signUpUserInput: SignUpUserInput) {
+    return this.authService.signUp(signUpUserInput);
   }
 }

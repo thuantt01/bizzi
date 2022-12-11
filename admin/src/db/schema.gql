@@ -3,10 +3,17 @@
 # ------------------------------------------------------
 
 type User {
-  id: Int!
+  id: Float!
   email: String!
-  password: String!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type LoginUserResponse {
   token: String!
@@ -14,15 +21,21 @@ type LoginUserResponse {
 }
 
 type Query {
-  users: [User!]!
-  fineOne(email: String!): User!
+  hello: String!
 }
 
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginUserResponse!
+  signUp(signUpUserInput: SignUpUserInput!): LoginUserResponse!
 }
 
 input LoginUserInput {
   email: String!
+  password: String!
+}
+
+input SignUpUserInput {
+  email: String!
+  name: String!
   password: String!
 }

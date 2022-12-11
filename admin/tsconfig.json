@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "strict": true,
+    "alwaysStrict": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -18,7 +20,7 @@
     "noFallthroughCasesInSwitch": false,
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["./src/*"],
+      "@db/*": ["./src/db/*"],
       "@app/*": ["./src/app/*"]
     }
   }
