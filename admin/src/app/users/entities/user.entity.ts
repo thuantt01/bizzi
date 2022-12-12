@@ -1,13 +1,15 @@
 import {
   Column,
   Entity,
+  OneToMany,
+  BeforeInsert,
   UpdateDateColumn,
   CreateDateColumn,
   PrimaryGeneratedColumn,
-  BeforeInsert,
 } from 'typeorm';
 import { hash } from 'bcrypt';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Post } from '@app/posts/entities/post.entity';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -33,7 +35,10 @@ export class User {
 
   @Field()
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
+  updatedAt?: Date;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 
   @BeforeInsert()
   async hashPassword() {

@@ -14,6 +14,10 @@ export class UsersService {
     return this.userRepository.findOneBy({ email });
   }
 
+  async findOneById(id: number) {
+    return this.userRepository.findOneBy({ id });
+  }
+
   async create(createUserArgs: CreateUserArgs) {
     const newUser = this.userRepository.create(createUserArgs);
 
