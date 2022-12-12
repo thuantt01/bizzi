@@ -1,6 +1,6 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, ArgsType } from '@nestjs/graphql';
 
-@InputType()
+@ArgsType()
 export class CreateUserArgs {
   @Field()
   email: string;
