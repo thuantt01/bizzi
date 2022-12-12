@@ -6,7 +6,9 @@ import { AuthModule } from '@app/auth/auth.module';
 import { dataSourceOptions } from '@db/data-source';
 import { UsersModule } from '@app/users/users.module';
 import { PostsModule } from '@app/posts/posts.module';
+import { DataloaderModule } from '@db/loaders/dataloader.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { DataloaderService } from '@db/loaders/dataloader.service';
 
 @Module({
   imports: [
@@ -14,11 +16,18 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     PostsModule,
     UsersModule,
     TypeOrmModule.forRoot(dataSourceOptions),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      debug: true,
-      playground: true,
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/db/schema.gql'),
+      imports: [DataloaderModule],
+      inject: [DataloaderService],
+      useFactory: (dataloaderService: DataloaderService) => {
+        return {
+          autoSchemaFile: join(process.cwd(), 'src/db/schema.gql'),
+          context: () => ({
+            loaders: dataloaderService.createLoaders(),
+          }),
+        };
+      },
     }),
   ],
 })

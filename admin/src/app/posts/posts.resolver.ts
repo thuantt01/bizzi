@@ -25,8 +25,8 @@ export class PostsResolver {
   ) {}
 
   @ResolveField('user', () => User)
-  getUser(@Parent() post: Post) {
-    return this.usersService.findOneById(post.userId);
+  getUser(@Parent() post: Post, @Context() { loaders }) {
+    return loaders.usersLoader.load(post.userId);
   }
 
   @Query(() => [Post], { name: 'posts' })
