@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '@app/users/entities/user.entity';
@@ -14,8 +14,8 @@ export class UsersService {
     return this.userRepository.findOneBy({ email });
   }
 
-  async findOneById(id: number) {
-    return this.userRepository.findOneBy({ id });
+  async findPostUsersByBatch(ids: readonly number[]) {
+    return this.userRepository.findBy({ id: In(ids) });
   }
 
   async create(createUserArgs: CreateUserArgs) {

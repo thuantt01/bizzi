@@ -12,7 +12,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Post } from '@app/posts/entities/post.entity';
 
 @ObjectType()
-@Entity({ name: 'users' })
+@Entity('users')
 export class User {
   @Field()
   @PrimaryGeneratedColumn()
