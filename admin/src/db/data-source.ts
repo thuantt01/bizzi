@@ -1,11 +1,14 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 
+import 'dotenv/config';
+
 export const dataSourceOptions: DataSourceOptions = {
+  logging: true,
   type: 'postgres',
   synchronize: false,
+  url: process.env.DATABASE_URL,
   entities: ['dist/app/**/*.entity.js'],
   migrations: ['dist/db/migrations/*.js'],
-  url: 'postgresql://t.thuan:Th2%401294@localhost:5432/bizzi?schema=public',
 };
 
 const dataSource = new DataSource(dataSourceOptions);

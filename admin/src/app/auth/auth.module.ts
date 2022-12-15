@@ -7,13 +7,15 @@ import { AuthResolver } from '@app/auth/auth.resolver';
 import { JwtStrategy } from '@app/auth/strategies/jwt/strategy';
 import { LocalStrategy } from '@app/auth/strategies/local/strategy';
 
+import 'dotenv/config';
+
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: 'hide-me',
-      signOptions: { expiresIn: '3600s' },
+      secret: process.env.APP_KEY,
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   providers: [AuthService, LocalStrategy, AuthResolver, JwtStrategy],

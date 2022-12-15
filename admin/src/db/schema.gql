@@ -34,7 +34,8 @@ type LoginUserResponse {
 
 type Query {
   hello: String!
-  posts: [Post!]!
+  posts(page: Int!): [Post!]!
+  totalPage: Int!
   userPosts: [Post!]!
   post(id: Int!): Post!
   userPost(id: Int!): Post!

@@ -8,11 +8,12 @@ import { Post, GetPostsDocument } from "@/graphql/posts/get-posts.grapql";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 type HomePageProps = {
+  count: number;
   posts: Post[];
 };
 
-const HomePage = ({ posts }: HomePageProps) => {
-  return <HomeLayout posts={posts} />;
+const HomePage = ({ posts, count }: HomePageProps) => {
+  return <HomeLayout posts={posts} count={count} />;
 };
 
 export const getServerSideProps = async ({
@@ -20,13 +21,20 @@ export const getServerSideProps = async ({
 }: GetServerSidePropsContext) => {
   const { data } = await client.query({
     query: GetPostsDocument,
+    variables: {
+      page: 1,
+    },
   });
 
-  const posts = Array.isArray(data?.posts) ? data.posts : [];
+  const { totalPage, posts: postsData } = data || {};
+
+  const count = +totalPage || 0;
+  const posts = Array.isArray(postsData) ? postsData : [];
 
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["home"])),
+      count,
       posts: posts,
     },
   };

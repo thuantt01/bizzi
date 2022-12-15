@@ -7,7 +7,7 @@ import {
 } from "@apollo/client";
 
 export type GetPostsQueryVariables = {
-  input: {};
+  page: number;
 };
 
 export type Post = {
@@ -27,8 +27,8 @@ export type GetPostsQuery = {
 };
 
 export const GetPostsDocument = gql`
-  query Posts {
-    posts {
+  query Posts($page: Int!) {
+    posts(page: $page) {
       id
       slug
       title
@@ -38,22 +38,14 @@ export const GetPostsDocument = gql`
         name
       }
     }
+    totalPage
   }
 `;
 
-export function useGetDetailSupportRequestQuery(
+export function useGetPostsQuery(
   baseOptions: QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>
 ) {
   return useQuery<GetPostsQuery, GetPostsQueryVariables>(
-    GetPostsDocument,
-    baseOptions
-  );
-}
-
-export function useGetDetailSupportRequestLazyQuery(
-  baseOptions?: LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>
-) {
-  return useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(
     GetPostsDocument,
     baseOptions
   );
