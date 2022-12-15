@@ -1,10 +1,11 @@
 import React from "react";
 
 import HomeLayout from "@/features/home/layout";
+import withAuthServerSideProps from "@/libs/auth";
 
 import { client } from "@/contexts/client";
 import { GetServerSidePropsContext } from "next";
-import { Post, GetPostsDocument } from "@/graphql/posts/get-posts.grapql";
+import { Post, GetPostsDocument } from "@/graphql/posts/get-posts.graphql";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 type HomePageProps = {
@@ -16,28 +17,28 @@ const HomePage = ({ posts, count }: HomePageProps) => {
   return <HomeLayout posts={posts} count={count} />;
 };
 
-export const getServerSideProps = async ({
-  locale,
-}: GetServerSidePropsContext) => {
-  const { data } = await client.query({
-    query: GetPostsDocument,
-    variables: {
-      page: 1,
-    },
-  });
+export const getServerSideProps = withAuthServerSideProps(
+  async ({ locale }: GetServerSidePropsContext) => {
+    const { data } = await client.query({
+      query: GetPostsDocument,
+      variables: {
+        page: 1,
+      },
+    });
 
-  const { totalPage, posts: postsData } = data || {};
+    const { totalPage, posts: postsData } = data || {};
 
-  const count = +totalPage || 0;
-  const posts = Array.isArray(postsData) ? postsData : [];
+    const count = +totalPage || 0;
+    const posts = Array.isArray(postsData) ? postsData : [];
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string, ["home"])),
-      count,
-      posts: posts,
-    },
-  };
-};
+    return {
+      props: {
+        ...(await serverSideTranslations(locale as string, ["home", "layout"])),
+        count,
+        posts: posts,
+      },
+    };
+  }
+);
 
 export default HomePage;

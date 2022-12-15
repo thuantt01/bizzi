@@ -9,7 +9,7 @@ import React, {
 import { PostCard } from "@/components";
 import { Box, Grid, Pagination, Stack } from "@mui/material";
 import { Cursor } from "@/features/home/partials/article/const";
-import { Post, useGetPostsQuery } from "@/graphql/posts/get-posts.grapql";
+import { Post, useGetPostsQuery } from "@/graphql/posts/get-posts.graphql";
 
 type ArticlePartialProps = {
   posts: Post[];

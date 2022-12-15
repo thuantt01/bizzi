@@ -10,21 +10,13 @@ export type SignInMutationVariables = {
 
 export type SignInMutation = {
   signIn: {
-    user: {
-      name: string;
-      email: string;
-    };
     token: string;
   };
 };
 
 export const SignInDocument = gql`
   mutation SignIn($input: SignInUserInput!) {
-    signIn(SignInUserInput: $input) {
-      user {
-        name
-        email
-      }
+    signIn(signInUserInput: $input) {
       token
     }
   }

@@ -7,7 +7,7 @@ import SignInDialog from "@/features/home/dialogs/sign-in/layout";
 
 import { Container } from "@mui/material";
 import { ModalType } from "@/features/home/shared";
-import { Post } from "@/graphql/posts/get-posts.grapql";
+import { Post } from "@/graphql/posts/get-posts.graphql";
 
 type HomeLayoutProps = {
   posts: Post[];

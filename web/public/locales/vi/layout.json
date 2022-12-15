@@ -1,0 +1,16 @@
+{
+  "master": {
+    "header": {
+      "menu": {
+        "item": {
+          "account": "Account"
+        }
+      }
+    },
+    "sidebar": {
+      "item": {
+        "post": "Posts"
+      }
+    }
+  }
+}

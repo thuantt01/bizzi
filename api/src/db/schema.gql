@@ -27,7 +27,7 @@ type User {
   updatedAt: DateTime!
 }
 
-type LoginUserResponse {
+type SignInUserResponse {
   token: String!
   user: User!
 }
@@ -42,14 +42,14 @@ type Query {
 }
 
 type Mutation {
-  login(loginUserInput: LoginUserInput!): LoginUserResponse!
-  signUp(signUpUserInput: SignUpUserInput!): LoginUserResponse!
+  signIn(signInUserInput: SignInUserInput!): SignInUserResponse!
+  signUp(signUpUserInput: SignUpUserInput!): SignInUserResponse!
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!): Post!
   removePost(id: Int!): Post!
 }
 
-input LoginUserInput {
+input SignInUserInput {
   email: String!
   password: String!
 }
