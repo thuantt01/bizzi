@@ -1,0 +1,65 @@
+{
+  "title": "Bizzi",
+  "partial": {
+    "hero": {
+      "title": "Bizzi Medium",
+      "description": "Bizzi Medium is an open platform where readers find dynamic thinking, and where expert and undiscovered voices can share their writing on any topic",
+      "btn": {
+        "sign-in": "Log In",
+        "sign-up": "Get free trial"
+      }
+    }
+  },
+  "dialog": {
+    "sign-up": {
+      "title": "Get free trial",
+      "form": {
+        "label": {
+          "email": "Email",
+          "name": "Full name",
+          "password": "Password",
+          "password-confirm": "Password confirmation"
+        },
+        "btn": {
+          "submit": "Submit",
+          "cancel": "Cancel"
+        },
+        "message": {
+          "required": {
+            "name": "The 'Name' field is required",
+            "email": "The 'Email' field is required",
+            "password": "The 'Password' field is required"
+          },
+          "min": {
+            "password": "The 'Password' field can't be less than {{value}} characters"
+          },
+          "format": {
+            "email": "The 'Email' field is invalid format"
+          },
+          "success": {
+            "create": "Creating an 'Account' is sucessfully"
+          }
+        }
+      }
+    },
+    "sign-in": {
+      "title": "Sign In",
+      "form": {
+        "label": {
+          "email": "Email",
+          "password": "Password"
+        },
+        "btn": {
+          "submit": "Submit",
+          "cancel": "Cancel"
+        },
+        "message": {
+          "required": {
+            "email": "The 'Name' field is required",
+            "password": "The 'Password' field is required"
+          }
+        }
+      }
+    }
+  }
+}
