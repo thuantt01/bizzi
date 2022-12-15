@@ -11,7 +11,6 @@ import {
 import { UseGuards } from '@nestjs/common';
 import { User } from '@app/users/entities/user.entity';
 import { Post } from '@app/posts/entities/post.entity';
-import { UsersService } from '@app/users/users.service';
 import { PostsService } from '@app/posts/posts.service';
 import { JwtAuthGuard } from '@app/auth/strategies/jwt/guard';
 import { CreatePostInput } from '@app/posts/dto/create-post.input';
@@ -19,10 +18,7 @@ import { UpdatePostInput } from '@app/posts/dto/update-post.input';
 
 @Resolver(() => Post)
 export class PostsResolver {
-  constructor(
-    private readonly postsService: PostsService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private readonly postsService: PostsService) {}
 
   @ResolveField('user', () => User)
   getUser(@Parent() post: Post, @Context() { loaders }) {
@@ -30,8 +26,13 @@ export class PostsResolver {
   }
 
   @Query(() => [Post], { name: 'posts' })
-  findAll() {
-    return this.postsService.findAll();
+  findAll(@Args('page', { type: () => Int }) page: number) {
+    return this.postsService.findAll(page);
+  }
+
+  @Query(() => Int, { name: 'totalPage' })
+  totalPage() {
+    return this.postsService.totalPage();
   }
 
   @UseGuards(JwtAuthGuard)

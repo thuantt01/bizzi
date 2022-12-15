@@ -17,7 +17,7 @@ const PostLayout = ({ post }: PostLayoutProps) => {
         <Stack spacing={1}>
           <Typography variant="h4">{title}</Typography>
           <Typography variant="subtitle2">
-            # {user.name} - {humanDateTime(createdAt)}
+            {user.name} - {humanDateTime(createdAt)}
           </Typography>
           <Typography
             variant="body2"

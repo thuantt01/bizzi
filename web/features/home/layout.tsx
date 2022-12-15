@@ -11,9 +11,10 @@ import { Post } from "@/graphql/posts/get-posts.grapql";
 
 type HomeLayoutProps = {
   posts: Post[];
+  count: number;
 };
 
-const HomeLayout = ({ posts }: HomeLayoutProps) => {
+const HomeLayout = ({ posts, count }: HomeLayoutProps) => {
   const [isBtnLoading, startTransition] = useTransition();
   const [modal, setModal] = useState<ModalType>(ModalType.Close);
 
@@ -31,7 +32,7 @@ const HomeLayout = ({ posts }: HomeLayoutProps) => {
       </Container>
 
       <Container maxWidth="lg" sx={{ pt: 4 }}>
-        <ArticlePartial posts={posts} />
+        <ArticlePartial posts={posts} count={count} />
       </Container>
 
       {modal === ModalType.SignUp && (

@@ -11,14 +11,18 @@ export class PostsService {
     @InjectRepository(Post) private postRepository: Repository<Post>,
   ) {}
 
+  private take = 12;
+
   create(createPostArgs: CreatePostArgs) {
     const newPost = this.postRepository.create({ ...createPostArgs });
 
     return this.postRepository.save(newPost);
   }
 
-  findAll() {
-    return this.postRepository.find();
+  findAll(page: number, take = this.take) {
+    const skip = (page - 1) * take;
+
+    return this.postRepository.find({ take, skip });
   }
 
   findOne(id: number) {
@@ -43,5 +47,11 @@ export class PostsService {
 
   async findUserPosts(userId: number) {
     return this.postRepository.find({ where: { userId } });
+  }
+
+  async totalPage() {
+    const totalCount = await this.postRepository.count();
+
+    return Math.ceil((+totalCount || 0) / this.take);
   }
 }
