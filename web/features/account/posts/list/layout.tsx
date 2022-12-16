@@ -22,6 +22,7 @@ const AccountPostsLayout = () => {
     variables: {
       page: cursor.page,
     },
+    fetchPolicy: "no-cache",
     onCompleted: (data) => {
       const { userPosts, totalPage } = data || {};
 
@@ -59,7 +60,7 @@ const AccountPostsLayout = () => {
             const item = { id, slug, title, createdAt };
 
             return (
-              <Grid item xs={6} key={`${slug}-${id}`}>
+              <Grid item xs={12} md={6} key={`${slug}-${id}`}>
                 <PostCard
                   {...item}
                   authorName={user.name}

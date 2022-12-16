@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import PostLayout from "@/features/posts/detail";
 import withAuthServerSideProps from "@/libs/auth";
 
+import { MetaTag } from "@/components";
 import { client } from "@/contexts/client";
 import { getIdSlug } from "@/libs/app/util";
 import { GetServerSidePropsContext } from "next";
@@ -14,7 +15,14 @@ type PostPageTypes = {
 };
 
 const PostPage = ({ post }: PostPageTypes) => {
-  return <PostLayout post={post} />;
+  const { title } = post;
+
+  return (
+    <Fragment>
+      <MetaTag title={title} description={title} />
+      <PostLayout post={post} />
+    </Fragment>
+  );
 };
 
 export const getServerSideProps = withAuthServerSideProps(

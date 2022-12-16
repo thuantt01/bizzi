@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import HomeLayout from "@/features/home/layout";
 import withAuthServerSideProps from "@/libs/auth";
 
+import { MetaTag } from "@/components";
 import { client } from "@/contexts/client";
+import { useTranslation } from "next-i18next";
 import { GetServerSidePropsContext } from "next";
 import { Post, GetPostsDocument } from "@/graphql/posts/get-posts.graphql";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -14,7 +16,14 @@ type HomePageProps = {
 };
 
 const HomePage = ({ posts, count }: HomePageProps) => {
-  return <HomeLayout posts={posts} count={count} />;
+  const { t } = useTranslation("home");
+
+  return (
+    <Fragment>
+      <MetaTag title={t("title")} />
+      <HomeLayout posts={posts} count={count} />
+    </Fragment>
+  );
 };
 
 export const getServerSideProps = withAuthServerSideProps(

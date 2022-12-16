@@ -4,6 +4,7 @@ import {
   CssBaseline,
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material";
+import { Toaster } from "@/libs/toast";
 
 const theme = createTheme({
   palette: {
@@ -26,6 +27,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       {children}
+      <Toaster position="top-right" />
     </MuiThemeProvider>
   );
 };

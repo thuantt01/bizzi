@@ -1,5 +1,6 @@
 {
-  "title": "Bizzi",
+  "title": "Bizzi Medium",
+  "description": "Bizzi Medium is an open platform where readers find dynamic thinking, and where expert and undiscovered voices can share their writing on any topic",
   "partial": {
     "hero": {
       "title": "Bizzi Medium",
@@ -35,10 +36,15 @@
           },
           "format": {
             "email": "The 'Email' field is invalid format"
-          },
-          "success": {
-            "create": "Creating an 'Account' is sucessfully"
           }
+        }
+      },
+      "message": {
+        "success": {
+          "create": "Creating an 'Account' was successfully"
+        },
+        "error": {
+          "system": "The system appears to have some errors, please try it again"
         }
       }
     },

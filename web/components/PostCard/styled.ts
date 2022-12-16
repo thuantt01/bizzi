@@ -1,5 +1,4 @@
 import NextLink from "next/link";
-
 import { styled } from "@mui/material/styles";
 
 export const Title = styled(NextLink)(({ theme }) => ({

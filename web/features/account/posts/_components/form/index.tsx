@@ -1,5 +1,6 @@
 import React from "react";
 
+import { toast } from "@/libs/toast";
 import { useRouter } from "next/router";
 import { LoadingButton } from "@mui/lab";
 import { Stack, Box } from "@mui/material";
@@ -55,11 +56,15 @@ const PostForm = ({ post }: PostFormProps) => {
       const { id } = data?.createPost || {};
 
       if (id) {
+        toast.success(t("message.success.create"));
         return replace({
           query: { id },
           pathname: pagePath.account.post.edit,
         });
       }
+    },
+    onError: () => {
+      return toast.success(t("message.error.system"));
     },
   });
 
@@ -68,11 +73,11 @@ const PostForm = ({ post }: PostFormProps) => {
       const { id } = data?.updatePost || {};
 
       if (id) {
-        return replace({
-          query: { id },
-          pathname: pagePath.account.post.edit,
-        });
+        return toast.success(t("message.success.update"));
       }
+    },
+    onError: () => {
+      return toast.success(t("message.error.system"));
     },
   });
 

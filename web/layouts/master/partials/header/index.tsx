@@ -2,10 +2,19 @@ import React, { Fragment, MouseEvent } from "react";
 
 import NextLink from "next/link";
 
+import {
+  Box,
+  Menu,
+  Avatar,
+  AppBar,
+  Toolbar,
+  MenuItem,
+  IconButton,
+} from "@mui/material";
+import { FiHome } from "@/libs/icon";
 import { pagePath } from "@/libs/app/const";
 import { AuthContext } from "@/contexts/auth";
 import { useTranslation } from "react-i18next";
-import { AppBar, Toolbar, Box, Avatar, Menu, MenuItem } from "@mui/material";
 
 const HeaderPartial = () => {
   const { t } = useTranslation("layout", { keyPrefix: "master.header" });
@@ -23,7 +32,11 @@ const HeaderPartial = () => {
   return (
     <AppBar position="fixed">
       <Toolbar>
-        <Box flexGrow={1} />
+        <Box flexGrow={1}>
+          <IconButton component={NextLink} href={pagePath.home}>
+            <FiHome size="2rem" color="white" />
+          </IconButton>
+        </Box>
         <Box display="flex">
           <AuthContext.Consumer>
             {({ user, isAuth }) => {

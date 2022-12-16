@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
 } from "@mui/material";
+import { toast } from "@/libs/toast";
 import { TextInput } from "@/fields";
 import { LoadingButton } from "@mui/lab";
 import { useAuth } from "@/contexts/auth";
@@ -51,8 +52,12 @@ const SignUpDialog = ({ onModalChange }: SignUpDialogProps) => {
       const { signUp } = data || {};
 
       useInitAuth(signUp.token);
+      toast.success(t("message.success.create"));
 
       return onModalChange(ModalType.Close);
+    },
+    onError: () => {
+      return toast.success(t("message.error.system"));
     },
   });
 

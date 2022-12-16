@@ -57,7 +57,7 @@ const ArticlePartial = ({ posts, count }: ArticlePartialProps) => {
             const item = { id, slug, title, createdAt };
 
             return (
-              <Grid item xs={4} key={`${slug}-${id}`}>
+              <Grid item xs={6} md={4} key={`${slug}-${id}`}>
                 <PostCard
                   {...item}
                   authorName={user.name}
