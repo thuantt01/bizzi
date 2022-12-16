@@ -1,5 +1,6 @@
 import React, { Fragment, ReactNode } from "react";
 
+import NextLink from "next/link";
 import HeaderPartial from "@/layouts/master/partials/header";
 
 import {
@@ -9,9 +10,15 @@ import {
   Toolbar,
   MenuList,
   MenuItem,
+  Container,
+  ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
+import { useAuth } from "@/contexts/auth";
+import { pagePath } from "@/libs/app/const";
+import { useTranslation } from "next-i18next";
+import { FiFeather, FiLogOut } from "@/libs/icon";
 
 type MasterLayoutProps = {
   children: ReactNode;
@@ -19,24 +26,46 @@ type MasterLayoutProps = {
 };
 
 const Template = ({ children, isPrivate }: MasterLayoutProps) => {
-  const { t } = useTranslation("layout", { keyPrefix: "master.sidebar" });
+  const { replace } = useRouter();
+  const { useCleanAuth } = useAuth();
+  const { t } = useTranslation("layout", { keyPrefix: "master" });
+
+  const onLogOut = () => {
+    if (useCleanAuth()) {
+      return replace(pagePath.home);
+    }
+  };
 
   if (isPrivate) {
     return (
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <Paper>
-            <MenuList dense>
-              <MenuItem>
-                <ListItemText>{t("item.post")}</ListItemText>
-              </MenuItem>
-            </MenuList>
-          </Paper>
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Paper>
+              <MenuList dense>
+                <MenuItem
+                  component={NextLink}
+                  href={pagePath.account.post.list}
+                >
+                  <ListItemIcon>
+                    <FiFeather size="1.5rem" />
+                  </ListItemIcon>
+                  <ListItemText>{t("sidebar.item.post")}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={onLogOut}>
+                  <ListItemIcon>
+                    <FiLogOut size="1.5rem" />
+                  </ListItemIcon>
+                  <ListItemText>{t("sidebar.item.log-out")}</ListItemText>
+                </MenuItem>
+              </MenuList>
+            </Paper>
+          </Grid>
+          <Grid item xs={8}>
+            {children}
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          {children}
-        </Grid>
-      </Grid>
+      </Container>
     );
   }
 

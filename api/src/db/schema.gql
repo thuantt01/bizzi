@@ -7,7 +7,6 @@ type Post {
   title: String!
   slug: String!
   content: String!
-  published: Boolean!
   userId: Float!
   user: User!
   createdAt: DateTime!
@@ -34,9 +33,9 @@ type SignInUserResponse {
 
 type Query {
   hello: String!
-  posts(page: Int!): [Post!]!
   totalPage: Int!
-  userPosts: [Post!]!
+  posts(page: Int!): [Post!]!
+  userPosts(page: Int!): [Post!]!
   post(id: Int!): Post!
   userPost(id: Int!): Post!
 }
@@ -63,12 +62,10 @@ input SignUpUserInput {
 input CreatePostInput {
   title: String!
   content: String!
-  published: Boolean!
 }
 
 input UpdatePostInput {
   title: String
   content: String
-  published: Boolean
   id: Int!
 }

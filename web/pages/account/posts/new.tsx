@@ -1,14 +1,14 @@
 import React from "react";
 
 import withAuthServerSideProps from "@/libs/auth";
-import AccountPostsLayout from "@/features/account/posts/list";
+import AccountPostNewLayout from "@/features/account/posts/new";
 
 import { Layout } from "@/libs/app/const";
 import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-const AccountPostsPage = () => {
-  return <AccountPostsLayout />;
+const AccountPostNewPage = () => {
+  return <AccountPostNewLayout />;
 };
 
 export const getServerSideProps = withAuthServerSideProps(
@@ -26,4 +26,4 @@ export const getServerSideProps = withAuthServerSideProps(
   { isPublic: false }
 );
 
-export default AccountPostsPage;
+export default AccountPostNewPage;

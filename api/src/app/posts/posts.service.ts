@@ -29,10 +29,10 @@ export class PostsService {
     return this.postRepository.findOneBy({ id });
   }
 
-  async update(id: number, updatePostArgs: UpdatePostArgs) {
-    const post = await this.findOne(id);
+  async update(id: number, { userId, ...updatePostArgs }: UpdatePostArgs) {
+    const post = await this.postRepository.findOneBy({ id, userId });
 
-    return this.postRepository.save({ ...post, updatePostArgs });
+    return this.postRepository.save({ ...post, ...updatePostArgs });
   }
 
   async remove(id: number) {
@@ -45,12 +45,14 @@ export class PostsService {
     return this.postRepository.findOneBy({ id, userId });
   }
 
-  async findUserPosts(userId: number) {
-    return this.postRepository.find({ where: { userId } });
+  async findUserPosts(page: number, userId: number, take = this.take) {
+    const skip = (page - 1) * take;
+
+    return this.postRepository.find({ where: { userId }, take, skip });
   }
 
-  async totalPage() {
-    const totalCount = await this.postRepository.count();
+  async totalPage(userId: number) {
+    const totalCount = await this.postRepository.count({ where: { userId } });
 
     return Math.ceil((+totalCount || 0) / this.take);
   }

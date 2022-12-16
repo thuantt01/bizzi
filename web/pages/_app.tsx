@@ -6,8 +6,10 @@ import MasterLayout from "@/layouts/master";
 
 import { Layout } from "@/libs/app/const";
 
+import "@/components/RichText/style.css";
+
 const App = ({ Component, pageProps }: AppProps) => {
-  const { isAuth, user, pageLayout = Layout.Master } = pageProps;
+  const { isAuth, user, pageLayout } = pageProps;
 
   return (
     <AppProvider authenticated={isAuth} user={user}>

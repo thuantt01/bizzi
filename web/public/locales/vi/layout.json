@@ -9,7 +9,8 @@
     },
     "sidebar": {
       "item": {
-        "post": "Posts"
+        "post": "Posts",
+        "log-out": "Log out"
       }
     }
   }

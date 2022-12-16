@@ -12,6 +12,10 @@ export const TokenNameSpace = "token";
 
 export type TokenInfo = { email: string; name: string };
 
+export const cleanAuth = () => {
+  return removeCookies(TokenNameSpace);
+};
+
 export const getAuth = ({ req, res }: GetServerSidePropsContext) => {
   const init = { isAuth: false, user: null };
 

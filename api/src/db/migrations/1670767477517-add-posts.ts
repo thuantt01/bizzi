@@ -22,7 +22,6 @@ export class addPosts1670767477517 implements MigrationInterface {
       { name: 'slug', type: 'varchar', isNullable: false },
       { name: 'content', type: 'varchar', isNullable: false },
       { name: 'user_id', type: 'int', isNullable: false },
-      { name: 'published', type: 'boolean', default: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
       { name: 'updated_at', type: 'timestamptz', isNullable: true },
     ],

@@ -32,10 +32,6 @@ export class Post {
   content: string;
 
   @Field()
-  @Column()
-  published: boolean;
-
-  @Field()
   @Column({ name: 'user_id' })
   userId: number;
 
@@ -59,6 +55,6 @@ export class Post {
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[đĐ]/g, (c) => (c === 'đ' ? 'd' : 'D'))
-      .replace(' ', '-');
+      .replace(/\s/g, '-');
   }
 }

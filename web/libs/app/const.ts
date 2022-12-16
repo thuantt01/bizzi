@@ -10,10 +10,16 @@ export enum Layout {
 }
 
 export const pagePath = {
+  home: "/",
   post: {
     detail: "/posts/[slug]",
   },
   account: {
     index: "/account/posts",
+    post: {
+      list: "/account/posts",
+      new: "/account/posts/new",
+      edit: "/account/posts/[id]",
+    },
   },
 };

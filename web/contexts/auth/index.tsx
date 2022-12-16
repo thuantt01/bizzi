@@ -6,7 +6,7 @@ import React, {
   createContext,
 } from "react";
 
-import { initAuth, TokenInfo } from "@/libs/cookies";
+import { initAuth, TokenInfo, cleanAuth } from "@/libs/cookies";
 
 type AuthProviderProps = {
   user: TokenInfo;
@@ -17,6 +17,7 @@ type AuthProviderProps = {
 interface AuthContextTypes {
   user: TokenInfo;
   isAuth: boolean;
+  useCleanAuth: () => boolean;
   useInitAuth: (token: string) => void;
 }
 
@@ -42,9 +43,16 @@ const AuthProvider = ({ children, authenticated, user }: AuthProviderProps) => {
     return setAuth(ok as boolean);
   };
 
+  const useCleanAuth = () => {
+    cleanAuth();
+    setAuth(false);
+
+    return true;
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isAuth, useInitAuth, user: userRef.current }}
+      value={{ isAuth, useInitAuth, user: userRef.current, useCleanAuth }}
     >
       {children}
     </AuthContext.Provider>

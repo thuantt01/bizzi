@@ -25,20 +25,23 @@ export class PostsResolver {
     return loaders.usersLoader.load(post.userId);
   }
 
+  @Query(() => Int, { name: 'totalPage' })
+  totalPage(@Context() { req }) {
+    return this.postsService.totalPage(req.user?.id);
+  }
+
   @Query(() => [Post], { name: 'posts' })
   findAll(@Args('page', { type: () => Int }) page: number) {
     return this.postsService.findAll(page);
   }
 
-  @Query(() => Int, { name: 'totalPage' })
-  totalPage() {
-    return this.postsService.totalPage();
-  }
-
   @UseGuards(JwtAuthGuard)
   @Query(() => [Post])
-  userPosts(@Context() { req }) {
-    return this.postsService.findUserPosts(req.user.id);
+  userPosts(
+    @Args('page', { type: () => Int }) page: number,
+    @Context() { req },
+  ) {
+    return this.postsService.findUserPosts(page, req.user.id);
   }
 
   @Query(() => Post, { name: 'post' })
