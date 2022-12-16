@@ -5,6 +5,6 @@ export type SignInForm = {
 };
 
 export const signInForm = {
-  email: "thuantt10@gmail.com",
-  password: "thuantt10@123",
+  email: "",
+  password: "",
 };
