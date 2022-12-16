@@ -5,6 +5,7 @@ const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
   env: {
+    GATEWAY_API_URL: process.env.APP_URL,
     GATEWAY_API_URL: process.env.GATEWAY_API_URL,
   },
 };

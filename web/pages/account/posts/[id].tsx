@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import withAuthServerSideProps from "@/libs/auth";
 import AccountPostEditLayout from "@/features/account/posts/edit";
 
+import { MetaTag } from "@/components";
 import { toInt } from "@/libs/app/util";
 import { Layout } from "@/libs/app/const";
 import { GetServerSidePropsContext } from "next";
@@ -18,7 +19,13 @@ type AccountPostEditPageProps = {
 };
 
 const AccountPostEditPage = ({ post }: AccountPostEditPageProps) => {
-  return <AccountPostEditLayout post={post} />;
+  const { title } = post;
+  return (
+    <Fragment>
+      <MetaTag title={title} description={title} />
+      <AccountPostEditLayout post={post} />
+    </Fragment>
+  );
 };
 
 export const getServerSideProps = withAuthServerSideProps(
