@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
 } from "@mui/material";
+import { toast } from "@/libs/toast";
 import { TextInput } from "@/fields";
 import { LoadingButton } from "@mui/lab";
 import { useAuth } from "@/contexts/auth";
@@ -29,7 +30,8 @@ const SignInDialog = ({ onModalChange }: SignInDialogProps) => {
       yup.object({
         email: yup
           .string()
-          .required(t("form.message.required.email") as string),
+          .required(t("form.message.required.email") as string)
+          .email(t("form.message.format.email") as string),
         password: yup
           .string()
           .required(t("form.message.required.password") as string),
@@ -44,6 +46,9 @@ const SignInDialog = ({ onModalChange }: SignInDialogProps) => {
       useInitAuth(signIn.token);
 
       return onModalChange(ModalType.Close);
+    },
+    onError: () => {
+      return toast.success(t("message.error.system"));
     },
   });
 

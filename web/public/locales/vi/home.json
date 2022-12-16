@@ -63,7 +63,15 @@
           "required": {
             "email": "The 'Name' field is required",
             "password": "The 'Password' field is required"
+          },
+          "format": {
+            "email": "The 'Email' field is invalid format"
           }
+        }
+      },
+      "message": {
+        "error": {
+          "system": "The system appears to have some errors, please try it again"
         }
       }
     }
