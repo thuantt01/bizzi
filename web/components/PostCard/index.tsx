@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { UrlObject } from "url";
 import { humanDate } from "@/libs/date-fns";
@@ -9,12 +9,14 @@ type PostCardProps = {
   title: string;
   createdAt: string;
   authorName: string;
+  children?: ReactNode;
   pagePath: string | UrlObject;
 };
 
 export const PostCard = ({
   title,
   pagePath,
+  children,
   createdAt,
   authorName,
 }: PostCardProps) => {
@@ -26,6 +28,9 @@ export const PostCard = ({
           <Typography>{humanDate(createdAt)}</Typography>
         </Box>
         <Title href={pagePath}>{title}</Title>
+        <Stack direction="row" spacing={2} justifyContent="right">
+          {children}
+        </Stack>
       </Stack>
     </Paper>
   );
