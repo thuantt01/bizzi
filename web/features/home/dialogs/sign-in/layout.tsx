@@ -8,10 +8,11 @@ import {
 } from "@mui/material";
 import { TextInput } from "@/fields";
 import { LoadingButton } from "@mui/lab";
+import { useAuth } from "@/contexts/auth";
 import { useTranslation } from "next-i18next";
 import { ModalType } from "@/features/home/shared";
 import { yup, useForm, yupResolver } from "@/libs/hook-form";
-import { useSignInMutation } from "@/graphql/authen/sign-in.grapql";
+import { useSignInMutation } from "@/graphql/authen/sign-in.graphql";
 import { SignInForm, signInForm } from "@/features/home/dialogs/sign-in/const";
 
 type SignInDialogProps = {
@@ -19,6 +20,7 @@ type SignInDialogProps = {
 };
 
 const SignInDialog = ({ onModalChange }: SignInDialogProps) => {
+  const { useInitAuth } = useAuth();
   const { t } = useTranslation("home", { keyPrefix: "dialog.sign-in" });
 
   const { handleSubmit, control } = useForm<SignInForm>({
@@ -36,7 +38,11 @@ const SignInDialog = ({ onModalChange }: SignInDialogProps) => {
   });
 
   const [signIn, { loading }] = useSignInMutation({
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const { signIn } = data || {};
+
+      useInitAuth(signIn.token);
+
       return onModalChange(ModalType.Close);
     },
   });

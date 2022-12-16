@@ -1,10 +1,5 @@
 import { gql } from "@apollo/client";
-import {
-  useQuery,
-  useLazyQuery,
-  QueryHookOptions,
-  LazyQueryHookOptions,
-} from "@apollo/client";
+import { useQuery, QueryHookOptions } from "@apollo/client";
 
 export type GetPostsQueryVariables = {
   page: number;

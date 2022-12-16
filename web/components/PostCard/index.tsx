@@ -1,22 +1,20 @@
 import React from "react";
 
+import { UrlObject } from "url";
 import { humanDate } from "@/libs/date-fns";
-import { pagePath } from "@/libs/app/const";
 import { Title } from "@/components/PostCard/styled";
 import { Box, Paper, Typography, Stack } from "@mui/material";
 
 type PostCardProps = {
-  id: number;
-  slug: string;
   title: string;
   createdAt: string;
   authorName: string;
+  pagePath: string | UrlObject;
 };
 
 export const PostCard = ({
-  id,
-  slug,
   title,
+  pagePath,
   createdAt,
   authorName,
 }: PostCardProps) => {
@@ -27,14 +25,7 @@ export const PostCard = ({
           <Typography>{authorName}</Typography>
           <Typography>{humanDate(createdAt)}</Typography>
         </Box>
-        <Title
-          href={{
-            query: { slug: `${id}-${slug}` },
-            pathname: pagePath.post.detail,
-          }}
-        >
-          {title}
-        </Title>
+        <Title href={pagePath}>{title}</Title>
       </Stack>
     </Paper>
   );

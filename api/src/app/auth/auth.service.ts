@@ -21,23 +21,22 @@ export class AuthService {
     return isMatch ? user : null;
   }
 
-  async login(user: User) {
-    const { email, id } = user;
+  async signIn(user: User) {
+    const { email, id, name } = user;
 
     return {
       user,
-      token: this.jwtService.sign({ email, sub: id }),
+      token: this.jwtService.sign({ email, sub: id, name }),
     };
   }
 
   async signUp(signUpUserInput: SignUpUserInput) {
     const user = await this.usersService.create(signUpUserInput);
 
-    const { email, id } = user;
-
+    const { email, id, name } = user;
     return {
       user,
-      token: this.jwtService.sign({ email, sub: id }),
+      token: this.jwtService.sign({ email, sub: id, name }),
     };
   }
 }

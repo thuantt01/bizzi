@@ -11,10 +11,6 @@ export type SignUpMutationVariables = {
 
 export type SignUpMutation = {
   signUp: {
-    user: {
-      name: string;
-      email: string;
-    };
     token: string;
   };
 };
@@ -22,10 +18,6 @@ export type SignUpMutation = {
 export const SignUpDocument = gql`
   mutation SignUp($input: SignUpUserInput!) {
     signUp(signUpUserInput: $input) {
-      user {
-        name
-        email
-      }
       token
     }
   }

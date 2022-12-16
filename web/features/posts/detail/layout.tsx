@@ -2,7 +2,7 @@ import React from "react";
 
 import { showHtml } from "@/libs/sanitize-html";
 import { humanDateTime } from "@/libs/date-fns";
-import { Post } from "@/graphql/posts/get-post.grapql";
+import { Post } from "@/graphql/posts/get-post.graphql";
 import { Container, Paper, Typography, Stack, Box } from "@mui/material";
 
 type PostLayoutProps = {

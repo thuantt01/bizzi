@@ -8,11 +8,12 @@ import {
 } from "@mui/material";
 import { TextInput } from "@/fields";
 import { LoadingButton } from "@mui/lab";
+import { useAuth } from "@/contexts/auth";
 import { useTranslation } from "next-i18next";
 import { LengthConfig } from "@/libs/app/const";
 import { ModalType } from "@/features/home/shared";
 import { yup, useForm, yupResolver } from "@/libs/hook-form";
-import { useSignUpMutation } from "@/graphql/authen/sign-up.grapql";
+import { useSignUpMutation } from "@/graphql/authen/sign-up.graphql";
 import { SignUpForm, signUpForm } from "@/features/home/dialogs/sign-up/const";
 
 type SignUpDialogProps = {
@@ -20,6 +21,7 @@ type SignUpDialogProps = {
 };
 
 const SignUpDialog = ({ onModalChange }: SignUpDialogProps) => {
+  const { useInitAuth } = useAuth();
   const { t } = useTranslation("home", { keyPrefix: "dialog.sign-up" });
 
   const { handleSubmit, control } = useForm<SignUpForm>({
@@ -45,7 +47,11 @@ const SignUpDialog = ({ onModalChange }: SignUpDialogProps) => {
   });
 
   const [signUp, { loading }] = useSignUpMutation({
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const { signUp } = data || {};
+
+      useInitAuth(signUp.token);
+
       return onModalChange(ModalType.Close);
     },
   });

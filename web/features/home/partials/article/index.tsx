@@ -7,9 +7,10 @@ import React, {
 } from "react";
 
 import { PostCard } from "@/components";
+import { pagePath } from "@/libs/app/const";
 import { Box, Grid, Pagination, Stack } from "@mui/material";
 import { Cursor } from "@/features/home/partials/article/const";
-import { Post, useGetPostsQuery } from "@/graphql/posts/get-posts.grapql";
+import { Post, useGetPostsQuery } from "@/graphql/posts/get-posts.graphql";
 
 type ArticlePartialProps = {
   posts: Post[];
@@ -57,7 +58,16 @@ const ArticlePartial = ({ posts, count }: ArticlePartialProps) => {
 
             return (
               <Grid item xs={4} key={`${slug}-${id}`}>
-                <PostCard {...item} authorName={user.name} />
+                <PostCard
+                  {...item}
+                  authorName={user.name}
+                  pagePath={{
+                    query: {
+                      slug: `${id}-${slug}`,
+                    },
+                    pathname: pagePath.post.detail,
+                  }}
+                />
               </Grid>
             );
           })}
