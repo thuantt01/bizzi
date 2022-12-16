@@ -1,0 +1,48 @@
+{
+  "_component": {
+    "form": {
+      "label": {
+        "title": "Title",
+        "content": "Content"
+      },
+      "btn": {
+        "submit": "Submit"
+      },
+      "message": {
+        "required": {
+          "title": "The 'Title' field is required",
+          "content": "The 'Content' field is required"
+        },
+        "max": {
+          "title": "The 'Title' field can't be less than {{value}} characters",
+          "content": "The 'Content' field can't be less than {{value}} characters"
+        },
+        "success": {
+          "create": "Creating a 'Post' was successfully",
+          "update": "Updating a 'Post' was successfully"
+        },
+        "error": {
+          "system": "The system appears to have some errors, please try it again"
+        }
+      }
+    }
+  },
+  "post": {
+    "list": {
+      "title": "User posts page",
+      "description": "User posts page",
+      "btn": {
+        "new": "Create"
+      },
+      "message": {
+        "error": {
+          "emtpy": "You don't have any shared posts"
+        }
+      }
+    },
+    "new": {
+      "title": "Create post page",
+      "description": "Create post page"
+    }
+  }
+}

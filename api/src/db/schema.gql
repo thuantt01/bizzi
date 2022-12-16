@@ -1,0 +1,71 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  id: Float!
+  title: String!
+  slug: String!
+  content: String!
+  userId: Float!
+  user: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: Float!
+  email: String!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SignInUserResponse {
+  token: String!
+  user: User!
+}
+
+type Query {
+  hello: String!
+  totalPage: Int!
+  posts(page: Int!): [Post!]!
+  userPosts(page: Int!): [Post!]!
+  post(id: Int!): Post!
+  userPost(id: Int!): Post!
+}
+
+type Mutation {
+  signIn(signInUserInput: SignInUserInput!): SignInUserResponse!
+  signUp(signUpUserInput: SignUpUserInput!): SignInUserResponse!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+}
+
+input SignInUserInput {
+  email: String!
+  password: String!
+}
+
+input SignUpUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+}
+
+input UpdatePostInput {
+  title: String
+  content: String
+  id: Int!
+}
