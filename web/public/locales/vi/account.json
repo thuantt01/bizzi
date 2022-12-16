@@ -35,8 +35,12 @@
         "new": "Create"
       },
       "message": {
+        "success": {
+          "delete": "Deleting a 'Post' was successfully"
+        },
         "error": {
-          "emtpy": "You don't have any shared posts"
+          "emtpy": "You don't have any shared posts",
+          "system": "The system appears to have some errors, please try it again"
         }
       }
     },

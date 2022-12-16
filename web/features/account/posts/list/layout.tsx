@@ -1,12 +1,22 @@
-import React, { Fragment, useState, ChangeEvent } from "react";
+import React, { Fragment, useState, ChangeEvent, MouseEvent } from "react";
 
 import NextLink from "next/link";
 
+import {
+  Box,
+  Grid,
+  Stack,
+  Button,
+  Pagination,
+  IconButton,
+} from "@mui/material";
+import { toast } from "@/libs/toast";
+import { FiTrash2 } from "@/libs/icon";
 import { PostCard } from "@/components";
 import { pagePath } from "@/libs/app/const";
 import { useTranslation } from "next-i18next";
 import { Cursor } from "@/features/account/posts/list/const";
-import { Stack, Box, Button, Grid, Pagination } from "@mui/material";
+import { useRemovePostMutation } from "@/graphql/account/posts/remove-post.graphql";
 import { useGetUserPostsQuery } from "@/graphql/account/posts/get-user-posts.graphql";
 
 const AccountPostsLayout = () => {
@@ -18,7 +28,7 @@ const AccountPostsLayout = () => {
     edges: [],
   });
 
-  const { loading } = useGetUserPostsQuery({
+  const { loading, refetch } = useGetUserPostsQuery({
     variables: {
       page: cursor.page,
     },
@@ -33,10 +43,34 @@ const AccountPostsLayout = () => {
     },
   });
 
+  const [remove, { loading: isRemoveLoading }] = useRemovePostMutation({
+    onCompleted: () => {
+      toast.success(t("message.success.delete"));
+
+      setCursor({ ...cursor, page: 1 });
+
+      return refetch();
+    },
+    onError: () => {
+      return toast.success(t("message.error.system"));
+    },
+  });
+
   const onPageChange = (e: ChangeEvent<unknown>, value: number) => {
     return setCursor({ ...cursor, page: value });
   };
 
+  const onRemoveClick = (e: MouseEvent<HTMLElement>) => {
+    const { id } = e.currentTarget.dataset;
+
+    if (id) {
+      return remove({
+        variables: {
+          id: +id,
+        },
+      });
+    }
+  };
   return (
     <Stack spacing={2}>
       <Box display="flex" justifyContent="right">
@@ -68,7 +102,15 @@ const AccountPostsLayout = () => {
                     query: { id },
                     pathname: pagePath.account.post.edit,
                   }}
-                />
+                >
+                  <IconButton
+                    data-id={id}
+                    onClick={onRemoveClick}
+                    disabled={isRemoveLoading}
+                  >
+                    <FiTrash2 size="1rem" />
+                  </IconButton>
+                </PostCard>
               </Grid>
             );
           })}

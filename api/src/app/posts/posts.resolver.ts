@@ -79,8 +79,11 @@ export class PostsResolver {
     });
   }
 
-  @Mutation(() => Post)
-  removePost(@Args('id', { type: () => Int }) id: number) {
-    return this.postsService.remove(id);
+  @Mutation(() => Int)
+  @UseGuards(JwtAuthGuard)
+  removePost(@Args('id', { type: () => Int }) id: number, @Context() { req }) {
+    this.postsService.remove(id, req.user.id);
+
+    return id;
   }
 }
